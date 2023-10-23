@@ -12,4 +12,13 @@ services:
     environment:
       - TZ=Europe/Berlin
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB0:/dev/ttyACM0
+    networks:
+      - home-auto-nw
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    networks:
+      - home-auto-nw
