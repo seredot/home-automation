@@ -1,8 +1,12 @@
 # README
+Basic home automation using Home Assistant, MQTT broker, and Zigbee2MQTT running on Docker Compose.
 
 ## Installation
 1. Clone this repo.
-2. Install docker and if compose not part of docker installation, docker-compose
+    ```sh
+    git clone git@github.com:seredot/home-automation.git
+    ```
+2. Install docker -and if compose not part of docker installation- docker-compose.
 3. Create configuration files using the example files in data folder:
     ```sh
     cp data/zigbee2mqtt/configuration.yaml.example data/zigbee2mqtt/configuration.yaml
