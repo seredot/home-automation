@@ -1,11 +1,22 @@
 version: "3.8"
 services:
+  mqtt:
+    container_name: mqtt
+    image: eclipse-mosquitto
+    restart: always
+    # do not expose ports unless you explicitly need to connect to the mqtt
+    # server from the outside of the docker compose network 
+    # ports:
+    #   - 1883:1883
+    #   - 9001:9001
+    volumes:
+      - ./data/mqtt:/mosquitto/config
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
-    restart: unless-stopped
+    restart: always
     volumes:
-      - ./data:/app/data
+      - ./data/zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
     ports:
       - 8080:8080
@@ -13,10 +24,12 @@ services:
       - TZ=Europe/Berlin
     devices:
       - /dev/ttyUSB0:/dev/ttyACM0
-  mqtt:
-    image: eclipse-mosquitto
+  home-assistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant   
+    restart: always
     ports:
-      - 1883:1883
-      - 9001:9001
+      - "8123:8123"
     volumes:
-      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./data/home-assistant:/config
+      - "/etc/localtime:/etc/localtime:ro"

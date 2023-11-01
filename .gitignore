@@ -1,0 +1,4 @@
+# ignore run time generated data files except examples
+!data/*/
+data/*/*
+!*.example
